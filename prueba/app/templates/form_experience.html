@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} CRUD Experience {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+            <input type="text" name="experience_name" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Fecha</label>
+            <input type="date" name="experience_date" class="form-control" id="exampleFormControlTextarea1">
+          </div>
+          <input type="submit" value="Send">
+    </form>
+</div>
+
+{% endblock main %}

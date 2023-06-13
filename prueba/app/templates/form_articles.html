@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} CRUD Articles {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+   <form action="" method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1">
+      </div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Articulo</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <input type="submit" value="Send">
+   </form>
+</div>
+
+{% endblock main %}

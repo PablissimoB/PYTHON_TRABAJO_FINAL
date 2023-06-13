@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} CRUD Work {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+            <input type="text" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">Url</label>
+            <input type="text" class="form-control" id="exampleFormControlInput2" >
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput3" class="form-label">Imagen</label>
+            <input type="text" class="form-control" id="exampleFormControlInput3">
+          </div>
+          <input type="submit" value="Send">
+    </form>
+</div>
+
+{% endblock main %}
