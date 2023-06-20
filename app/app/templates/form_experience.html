@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} CRUD Experience {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+    <div class="card">
+      <div class="card-body">
+    <form action="/menu/add_experience/" method="POST">
+        {% csrf_token %}
+        ADD
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+            <input type="text" name="experience_name" class="form-control" id="exampleFormControlInput1">
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlInput2" class="form-label">Institución</label>
+            <input type="text" name="experience_institution" class="form-control" id="exampleFormControlInput2">
+          </div>
+          <input type="submit" value="Send">
+    </form>
+      </div>
+    </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+      <h3>Listado de Experiencias</h3>
+      <div class="table-responsive py-2">
+        <table class="table table-striped">
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Institution</th>
+            <th colspan="1">Opcion</th>
+        </tr>
+        <tbody>
+          {% for item in experience_list %}
+          <tr>
+          <td>{{item.id}}</td>
+          <td>{{item.experience_name}}</td>
+          <td>{{item.experience_institution}}</td>
+          <td><a href="/menu/edit_experience/{{item.id}}" class="btn btn-info">Edit</a></td>
+          <!-- <td><a href="" class="btn btn-danger btnEliminacion">Delete</a></td> -->
+          </tr>
+          {% endfor %}
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% endblock main %}

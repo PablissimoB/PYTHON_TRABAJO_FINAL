@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Experience {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row align-items-start">
+        {% for item in experience_list %}
+            <form action="/menu/update_experience/" method="POST">
+                {% csrf_token %}
+                EDIT EXPERIENCE
+                <hr>
+                <div class="mb-1">
+                    <label for="exampleFormControlInput0" class="form-label">Id</label>
+                    <input type="text" name="experience_id" id="exampleFormControlInput0" readonly value="{{item.id}}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+                    <input type="text" name="experience_name" value="{{item.experience_name}}" class="form-control" id="exampleFormControlInput1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput2" class="form-label">Institución</label>
+                    <input type="text" name="experience_institution" value="{{item.experience_institution}}" class="form-control" id="exampleFormControlInput2">
+                  </div>
+                  <input type="submit" value="Update">
+            </form>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock main %}

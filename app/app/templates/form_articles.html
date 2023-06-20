@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} CRUD Articles {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4">
+      <div class="card">
+        <div class="card-body">
+          <form action="/menu/add_article/" method="POST">
+            {% csrf_token %}
+            ADD
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="articles_name">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">Articulo</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="articles_text"></textarea>
+              </div>
+              <input type="submit" value="Send">
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8">
+      <h3>Listado de Articulos</h3>
+          <div class="table-responsive py-2">
+            <table class="table table-striped">
+              <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Content</th>
+                <!-- <th colspan="2">Opcion</th> -->
+            </tr>
+            <tbody>
+              {% for item in articles_list %}
+              <tr>
+              <td>{{item.id}}</td>
+              <td>{{item.articles_name}}</td>
+              <td>{{item.articles_text}}</td>
+              <!-- <td><a href="" class="btn btn-info">Edit</a></td>
+              <td><a href="" class="btn btn-danger btnEliminacion">Delete</a></td> -->
+              </tr>
+              {% endfor %}
+            </tbody>
+            </table>
+          </div>
+    </div>
+  </div>
+</div>
+
+{% endblock main %}
