@@ -8,6 +8,9 @@ from .models import Work
 def presentation(request):
     return render(request, "index.html")
 
+def error(request, exception):
+    return render(request, "error.html")
+
 def my_work(request):
     work_list = Work.objects.all()
     return render(request, "my_work.html", {"work_list": work_list})

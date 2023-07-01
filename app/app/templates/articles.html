@@ -7,18 +7,22 @@
 {% block main %}
 
 <div class="container">
-   {% for item in articles_list %}
-   <p>
-      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#c{{item.id}}" aria-expanded="false" aria-controls="c{{item.id}}">
-         {{item.articles_name}}
-      </button>
-    </p>
-    <div class="collapse" id="c{{item.id}}">
-      <div class="card card-body">
-         {{item.articles_text}}
+   {% if articles_list %}
+      {% for item in articles_list %}
+      <p>
+         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#c{{item.id}}" aria-expanded="false" aria-controls="c{{item.id}}">
+            {{item.articles_name}}
+         </button>
+      </p>
+      <div class="collapse" id="c{{item.id}}">
+         <div class="card card-body">
+            {{item.articles_text}}
+         </div>
       </div>
-    </div>
-   {% endfor %}
+      {% endfor %}
+   {% else %}
+      <p class="text-center">No hay elementos en la lista.</p>
+   {% endif %}
 </div>
 
 {% endblock main %}
