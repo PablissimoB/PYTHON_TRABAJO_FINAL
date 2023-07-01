@@ -14,9 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-# from django.contrib import admin
-from django.urls import path
+from django.contrib import admin
+from django.urls import include, path
 from core import views
+from django.conf.urls import handler404
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -34,4 +35,7 @@ urlpatterns = [
     path('menu/add_work/', views.add_work, name="AddWork"),
     path('menu/edit_experience/<id>', views.edit_experience, name="EditExperience"),
     path('menu/update_experience/', views.update_experience, name="UpdateExperience"),
+    path('accounts/',include('django.contrib.auth.urls')),
+    path('end/' , views.end_session, name="EndSession")
 ]
+handler404 = 'core.views.error'

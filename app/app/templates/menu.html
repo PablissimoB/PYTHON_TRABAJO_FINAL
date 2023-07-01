@@ -7,9 +7,20 @@
 {% block main %}
 
 <div class="container">
-        <a href="{% url 'FormArticles' %}"><button type="button" class="btn btn-primary">Articles</button></a>
-        <a href="{% url 'FormExperience' %}"><button type="button" class="btn btn-primary">Experience</button></a>
-        <a href="{% url 'FormMyWork' %}"><button type="button" class="btn btn-primary">My Work</button></a>
+        <div class="row">
+                <a href="{% url 'EndSession' %}"><button type="button" class="btn btn-warning">Logout</button></a>
+        </div>
+        <div class="row">
+                <div class="col">
+                        <a href="{% url 'FormArticles' %}"><button type="button" class="btn btn-primary">Articles</button></a>
+                </div>
+                <div class="col">
+                        <a href="{% url 'FormExperience' %}"><button type="button" class="btn btn-primary">Experience</button></a>
+                </div>
+                <div class="col">
+                        <a href="{% url 'FormMyWork' %}"><button type="button" class="btn btn-primary">My Work</button></a>
+                </div>
+        </div>
 </div>
 
 {% endblock main %}

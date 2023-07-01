@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 from .models import Experience
 from .models import Article
@@ -35,9 +37,11 @@ def form_my_work(request):
     work_list = Work.objects.all()
     return render(request, "form_my_work.html", {"work_list": work_list})
 
+@login_required
 def menu(request):
     return render(request, "menu.html")
 
+@login_required
 def add_article(request):
     if request.method == 'POST':
         name=request.POST['articles_name']
@@ -48,6 +52,7 @@ def add_article(request):
         return render(request, "success.html")
     else: return render(request, "error.html")
 
+@login_required
 def add_experience(request):
     if request.method == 'POST':
         name=request.POST['experience_name']
@@ -58,6 +63,7 @@ def add_experience(request):
         return render(request, "success.html")
     else: return render(request, "error.html")
 
+@login_required
 def add_work(request):
     if request.method == 'POST':
         name=request.POST['work_name']
@@ -68,10 +74,12 @@ def add_work(request):
         return render(request, "success.html")
     else: return render(request, "error.html")
 
+@login_required
 def edit_experience(request, id):
     experience_list = Experience.objects.filter(id=id)
     return render(request, "edit_experience.html",{"experience_list": experience_list})
 
+@login_required
 def update_experience(request):
         experience_id=request.POST['experience_id']
         name=request.POST['experience_name']
@@ -85,3 +93,7 @@ def update_experience(request):
         messages.success(request, 'Experiencia actualizada')
 
         return redirect('/menu/form_experience/')
+
+def end_session (request):
+    logout(request)
+    return redirect('/')
