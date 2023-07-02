@@ -35,7 +35,8 @@
             <th>#</th>
             <th>Name</th>
             <th>Url</th>
-            <!-- <th colspan="2">Opcion</th> -->
+            <th>Date</th>
+            <th colspan="2">Opcion</th>
         </tr>
         <tbody>
           {% for item in work_list %}
@@ -43,8 +44,9 @@
           <td>{{item.id}}</td>
           <td>{{item.work_name}}</td>
           <td>{{item.work_url}}</td>
-          <!-- <td><a href="" class="btn btn-info">Edit</a></td>
-          <td><a href="" class="btn btn-danger btnEliminacion">Delete</a></td> -->
+          <td>{{item.id}}</td>
+          <td><a href="/menu/edit_work/{{item.id}}" class="btn btn-info">Edit</a></td>
+          <td><a href="/menu/delete_work/{{item.id}}" class="btn btn-danger btnEliminacion">Delete</a></td>
           </tr>
           {% endfor %}
         </tbody>

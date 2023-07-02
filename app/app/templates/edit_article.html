@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Article {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row align-items-start">
+        {% for item in article_list %}
+            <form action="/menu/update_article/" method="POST">
+                {% csrf_token %}
+                EDIT ARTICLE
+                <hr>
+                <div class="mb-1">
+                    <label for="exampleFormControlInput0" class="form-label">Id</label>
+                    <input type="text" name="article_id" id="exampleFormControlInput0" readonly value="{{item.id}}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Titulo</label>
+                    <input type="text" name="article_name" value="{{item.articles_name}}" class="form-control" id="exampleFormControlInput1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput2" class="form-label">Subtitulo</label>
+                    <textarea name="article_text" id="exampleFormControlInput2" class="form-control" name="article_text" rows="3">
+                        {{item.articles_text}}
+                    </textarea>
+                  </div>
+                  <input type="submit" value="Update">
+            </form>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock main %}

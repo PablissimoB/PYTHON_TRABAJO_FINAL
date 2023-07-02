@@ -35,7 +35,7 @@
             <th>#</th>
             <th>Name</th>
             <th>Institution</th>
-            <th colspan="1">Opcion</th>
+            <th colspan="2">Opcion</th>
         </tr>
         <tbody>
           {% for item in experience_list %}
@@ -44,7 +44,7 @@
           <td>{{item.experience_name}}</td>
           <td>{{item.experience_institution}}</td>
           <td><a href="/menu/edit_experience/{{item.id}}" class="btn btn-info">Edit</a></td>
-          <!-- <td><a href="" class="btn btn-danger btnEliminacion">Delete</a></td> -->
+          <td><a href="/menu/delete_experience/{{item.id}}" class="btn btn-danger btnEliminacion">Delete</a></td>
           </tr>
           {% endfor %}
         </tbody>

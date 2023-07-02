@@ -8,7 +8,6 @@
 
 <div class="container">
    {% if articles_list %}
-      {% for item in articles_list %}
       <p>
          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#c{{item.id}}" aria-expanded="false" aria-controls="c{{item.id}}">
             {{item.articles_name}}
@@ -17,10 +16,8 @@
       <div class="collapse" id="c{{item.id}}">
          <div class="card card-body">
             {{item.articles_text}}
-            <a href="#">Ver Completo</a>
          </div>
       </div>
-      {% endfor %}
    {% else %}
       <p class="text-center">No hay elementos en la lista.</p>
    {% endif %}

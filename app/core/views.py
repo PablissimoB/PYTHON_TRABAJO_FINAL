@@ -60,7 +60,7 @@ def add_experience(request):
 
         article =  Experience.objects.create(experience_name=name,
                                              experience_institution=institution)
-        return render(request, "success.html")
+        return redirect('/menu/form_experience/')
     else: return render(request, "error.html")
 
 @login_required
@@ -80,6 +80,34 @@ def edit_experience(request, id):
     return render(request, "edit_experience.html",{"experience_list": experience_list})
 
 @login_required
+def edit_article(request, id):
+    article_list = Article.objects.filter(id=id)
+    return render(request, "edit_article.html",{"article_list": article_list})
+
+@login_required
+def edit_work(request, id):
+    work_list = Work.objects.filter(id=id)
+    return render(request, "edit_work.html",{"work_list": work_list})
+
+@login_required
+def delete_experience(request, id):
+    item = Experience.objects.get(id=id)
+    item.delete()
+    return redirect('/menu/form_experience/')
+
+@login_required
+def delete_article(request, id):
+    item = Article.objects.get(id=id)
+    item.delete()
+    return redirect('/menu/form_articles/')
+
+@login_required
+def delete_work(request, id):
+    item = Work.objects.get(id=id)
+    item.delete()
+    return redirect('/menu/form_my_work/')
+
+@login_required
 def update_experience(request):
         experience_id=request.POST['experience_id']
         name=request.POST['experience_name']
@@ -93,6 +121,36 @@ def update_experience(request):
         messages.success(request, 'Experiencia actualizada')
 
         return redirect('/menu/form_experience/')
+
+@login_required
+def update_article(request):
+        article_id=request.POST['article_id']
+        name=request.POST['article_name']
+        text=request.POST['article_text']
+
+        article =  Article.objects.get(id=article_id)
+        article.articles_name = name
+        article.articles_text = text
+        article.save()
+
+        messages.success(request, 'Articulo actualizada')
+
+        return redirect('/menu/form_articles/')
+
+@login_required
+def update_work(request):
+        work_id=request.POST['work_id']
+        name=request.POST['work_name']
+        url=request.POST['work_url']
+
+        work =  Work.objects.get(id=work_id)
+        work.work_name = name
+        work.work_url = url
+        work.save()
+
+        messages.success(request, 'Trabajo actualizado')
+
+        return redirect('/menu/form_my_work/')
 
 def end_session (request):
     logout(request)

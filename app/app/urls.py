@@ -34,7 +34,14 @@ urlpatterns = [
     path('menu/add_experience/', views.add_experience, name="AddExperience"),
     path('menu/add_work/', views.add_work, name="AddWork"),
     path('menu/edit_experience/<id>', views.edit_experience, name="EditExperience"),
+    path('menu/edit_article/<id>', views.edit_article, name="EditArticle"),
+    path('menu/edit_work/<id>', views.edit_work, name="EditWork"),
+    path('menu/delete_experience/<id>', views.delete_experience, name="DeleteExperience"),
+    path('menu/delete_article/<id>', views.delete_article, name="DeleteArticle"),
+    path('menu/delete_work/<id>', views.delete_work, name="DeleteWork"),
     path('menu/update_experience/', views.update_experience, name="UpdateExperience"),
+    path('menu/update_article/', views.update_article, name="UpdateArticle"),
+    path('menu/update_work/', views.update_work, name="UpdateWork"),
     path('accounts/',include('django.contrib.auth.urls')),
     path('end/' , views.end_session, name="EndSession")
 ]

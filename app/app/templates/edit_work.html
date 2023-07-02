@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} Work {% endblock title %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row align-items-start">
+        {% for item in work_list %}
+            <form action="/menu/update_work/" method="POST">
+                {% csrf_token %}
+                EDIT WORK
+                <hr>
+                <div class="mb-1">
+                    <label for="exampleFormControlInput0" class="form-label">Id</label>
+                    <input type="text" name="work_id" id="exampleFormControlInput0" readonly value="{{item.id}}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                    <input type="text" name="work_name" value="{{item.work_name}}" class="form-control" id="exampleFormControlInput1">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput2" class="form-label">URL</label>
+                    <input type="text" name="work_url" value="{{item.work_url}}" class="form-control" id="exampleFormControlInput2">
+                  </div>
+                  <input type="submit" value="Update">
+            </form>
+        {% endfor %}
+    </div>
+
+
+</div>
+
+{% endblock main %}
