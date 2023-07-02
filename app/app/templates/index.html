@@ -7,14 +7,16 @@
 {% block main %}
 
 <div class="container">
+    {% for item in usuario %}
     <ul style="list-style-type: none;">
-        <li><b>Names:</b> Pablo Alejandro</li>
-        <li><b>LastName:</b> Bobarini</li>
-        <li><b>BirthDate:</b> 1985-09-29</li>
-        <li><b>City:</b> Cordoba</li>
-        <li><b>Country:</b> Argentina</li>
-
+        <li><b>Names:</b> {{item.first_name}}</li>
+        <li><b>LastName:</b> {{item.last_name}}</li>
+        {% for item2 in profile %}
+        <li><b>City:</b> {{item2.city}}</li>
+        <li><b>Country:</b> {{item2.country}}</li>
+        {% endfor %}
     </ul>
+    {% endfor %}
 </div>
 
 {% endblock main %}

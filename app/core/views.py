@@ -2,13 +2,17 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 
+from .models import Profile
 from .models import Experience
 from .models import Article
 from .models import Work
 
 def presentation(request):
-    return render(request, "index.html")
+    item = User.objects.all()
+    profile = Profile.objects.filter(user_id=1)
+    return render(request, "index.html", {"usuario": item, "profile":profile})
 
 def error(request, exception):
     return render(request, "error.html")
@@ -32,10 +36,45 @@ def article(request, id):
 @login_required
 def edit_user(request):
     usuario = request.user
+    profile = Profile.objects.get(user_id=usuario.id)
+    return render(request, "form_user.html",{"profile": profile})
 
-    if request.method == 'POST':
-        formulario = UserEditForm(request.POST)
-        info = formulario.cleaned_data
+
+@login_required
+def update_user(request):
+
+    usuario = request.user
+
+    user_id=request.POST['id']
+    lastname=request.POST['last_name']
+    firstname=request.POST['first_name']
+    mail=request.POST['mail']
+
+    usuario.last_name = lastname
+    usuario.first_name = firstname
+    usuario.email = mail
+    usuario.save()
+
+    profile = Profile.objects.filter(user_id=usuario.id)
+    if not profile:
+        profile_imagen = request.POST['imagefile']
+        profile_country = request.POST['country']
+        profile_city = request.POST['city']
+        profile = Profile.objects.create(imagen = profile_imagen,
+                                         country = profile_country,
+                                         city = profile_city,
+                                         user_id = usuario.id
+                                         )
+        messages.success(request, 'Usuario actualizado')
+        return redirect('/')
+    else:
+        profile2 = Profile.objects.get(user_id=usuario.id)
+        profile2.imagen = request.POST['imagefile']
+        profile2.country = request.POST['country']
+        profile2.city = request.POST['city']
+        profile2.save()
+        messages.success(request, 'Usuario actualizado')
+        return redirect('/')
 
 @login_required
 def form_articles(request):
