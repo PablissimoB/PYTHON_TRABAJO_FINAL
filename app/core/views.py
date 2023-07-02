@@ -25,14 +25,29 @@ def experience(request):
     experience_list = Experience.objects.all()
     return render(request, "experience.html",{"experience_list": experience_list})
 
+def article(request, id):
+    article_list = Article.objects.filter(id=id)
+    return render(request, "article.html",{"article_list": article_list})
+
+@login_required
+def edit_user(request):
+    usuario = request.user
+
+    if request.method == 'POST':
+        formulario = UserEditForm(request.POST)
+        info = formulario.cleaned_data
+
+@login_required
 def form_articles(request):
     articles_list = Article.objects.all()
     return render(request, "form_articles.html", {"articles_list": articles_list})
 
+@login_required
 def form_experience(request):
     experience_list = Experience.objects.all()
     return render(request, "form_experience.html",{"experience_list": experience_list})
 
+@login_required
 def form_my_work(request):
     work_list = Work.objects.all()
     return render(request, "form_my_work.html", {"work_list": work_list})
@@ -45,10 +60,15 @@ def menu(request):
 def add_article(request):
     if request.method == 'POST':
         name=request.POST['articles_name']
+        subname=request.POST['articles_subname']
         text=request.POST['articles_text']
+        year=request.POST['articles_year']
 
         article =  Article.objects.create(articles_name=name,
-                                          articles_text=text)
+                                          articles_text=text,
+                                          articles_subname=subname,
+                                          articles_year = year
+                                          )
         return render(request, "success.html")
     else: return render(request, "error.html")
 
@@ -68,9 +88,11 @@ def add_work(request):
     if request.method == 'POST':
         name=request.POST['work_name']
         url=request.POST['work_url']
+        year=request.POST['work_year']
 
-        article =  Work.objects.create(work_name=name,
-                                       work_url=url)
+        item =  Work.objects.create(work_name=name,
+                                       work_url=url,
+                                       work_year = year)
         return render(request, "success.html")
     else: return render(request, "error.html")
 
