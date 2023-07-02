@@ -142,10 +142,12 @@ def update_work(request):
         work_id=request.POST['work_id']
         name=request.POST['work_name']
         url=request.POST['work_url']
+        year=request.POST['work_year']
 
         work =  Work.objects.get(id=work_id)
         work.work_name = name
         work.work_url = url
+        work.work_year = year
         work.save()
 
         messages.success(request, 'Trabajo actualizado')

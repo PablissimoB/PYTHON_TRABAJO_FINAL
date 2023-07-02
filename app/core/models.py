@@ -3,6 +3,7 @@ from django.db import models
 class Work(models.Model):
     work_name = models.CharField(max_length=50)
     work_url = models.CharField(max_length=150)
+    work_year = models.IntegerField(max_length=4)
 
     def __str__(self):
         return f"Work: {self.work_name}"
