@@ -8,10 +8,11 @@ class Work(models.Model):
     def __str__(self):
         return f"Work: {self.work_name}"
 
-    
 class Article(models.Model):
-    articles_name = models.CharField(max_length=50)
+    articles_name = models.CharField(max_length=80)
+    articles_subname = models.CharField(max_length=100)
     articles_text = models.TextField()
+    articles_year = models.IntegerField(max_length=4)
 
     def __str__(self):
         return f"Article: {self.articles_name}"

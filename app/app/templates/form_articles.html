@@ -19,6 +19,14 @@
                 <input type="text" class="form-control" id="exampleFormControlInput1" name="articles_name">
               </div>
               <div class="mb-3">
+                <label for="exampleFormControlInput2" class="form-label">SubTitulo</label>
+                <input type="text" class="form-control" id="exampleFormControlInput2" name="articles_subname">
+              </div>
+              <div class="mb-3">
+                <label for="exampleFormControlInput3" class="form-label">Year</label>
+                <input type="number" class="form-control" id="exampleFormControlInput3" name="articles_year">
+              </div>
+              <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Articulo</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="articles_text"></textarea>
               </div>
@@ -36,17 +44,17 @@
                 <th>Name</th>
                 <th>Subtitle</th>
                 <th>Content</th>
-                <th>Date</th>
+                <th>Year</th>
                 <th colspan="2">Opcion</th>
             </tr>
             <tbody>
               {% for item in articles_list %}
               <tr>
               <td>{{item.id}}</td>
-              <td>{{item.id}}</td>
               <td>{{item.articles_name}}</td>
+              <td>{{item.articles_subname}}</td>
               <td>{{item.articles_text}}</td>
-              <td>{{item.articles_text}}</td>
+              <td>{{item.articles_year}}</td>
               <td><a href="/menu/edit_article/{{item.id}}" class="btn btn-info">Edit</a></td>
               <td><a href="/menu/delete_article/{{item.id}}" class="btn btn-danger btnEliminacion">Delete</a></td>
               </tr>

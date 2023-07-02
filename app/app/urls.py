@@ -25,6 +25,7 @@ urlpatterns = [
     path('', views.presentation, name="Index"),
     path('my_work/', views.my_work, name="MyWork"),
     path('articles/', views.articles, name="Articles"),
+    path('menu/article/<id>', views.article, name="ArticleSearch"),
     path('experience/', views.experience, name="Experience"),
     path('menu/', views.menu, name="Menu"),
     path('menu/form_articles/', views.form_articles, name="FormArticles"),
