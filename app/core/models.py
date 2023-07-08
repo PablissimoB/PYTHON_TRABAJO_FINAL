@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    imagen = models.ImageField(upload_to='', null=True, blank = True)
+    imagen = models.ImageField(null=True, blank = True)
     city = models.CharField(max_length=50)
     country = models.CharField(max_length=50)
 
@@ -12,7 +12,7 @@ class Profile(models.Model):
         return self.user.last_name
 
     def __str__(self):
-        return f"{self.user} - {self.imagen}"
+        return f"{self.user} - {self.imagen} - {self.city} - {self.country}"
 
 class Work(models.Model):
     work_name = models.CharField(max_length=50)

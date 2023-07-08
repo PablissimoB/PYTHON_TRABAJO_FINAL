@@ -3,11 +3,16 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import View
+from django.urls import reverse_lazy
 
 from .models import Profile
 from .models import Experience
 from .models import Article
 from .models import Work
+
+from .form import ProfileEditForm, UserEditForm
 
 def presentation(request):
     item = User.objects.all()
@@ -34,47 +39,49 @@ def article(request, id):
     return render(request, "article.html",{"article_list": article_list})
 
 @login_required
-def edit_user(request):
-    usuario = request.user
-    profile = Profile.objects.get(user_id=usuario.id)
-    return render(request, "form_user.html",{"profile": profile})
+def edit_profile(request):
+    usuario = User.objects.get(username = request.user)
+    profile = Profile.objects.get(user=usuario)
+
+    if request.method == 'POST':
+        form = ProfileEditForm(request.POST, request.FILES)
+        if form.is_valid():
+            profile.imagen = form.cleaned_data["imagen"]
+            profile.city = form.cleaned_data["city"]
+            profile.country = form.cleaned_data["country"]
+            profile.save()
+    else:
+        form = ProfileEditForm(
+            initial ={
+                'city': profile.city,
+                'country':profile.country
+            }
+        )
+    return render(request, "form_profile.html",{"profile": profile,"form": form})
 
 
 @login_required
-def update_user(request):
+def edit_user(request):
+    usuario = User.objects.get(username = request.user)
 
-    usuario = request.user
-
-    user_id=request.POST['id']
-    lastname=request.POST['last_name']
-    firstname=request.POST['first_name']
-    mail=request.POST['mail']
-
-    usuario.last_name = lastname
-    usuario.first_name = firstname
-    usuario.email = mail
-    usuario.save()
-
-    profile = Profile.objects.filter(user_id=usuario.id)
-    if not profile:
-        profile_imagen = request.POST['imagefile']
-        profile_country = request.POST['country']
-        profile_city = request.POST['city']
-        profile = Profile.objects.create(imagen = profile_imagen,
-                                         country = profile_country,
-                                         city = profile_city,
-                                         user_id = usuario.id
-                                         )
-        messages.success(request, 'Usuario actualizado')
-        return redirect('/')
+    if request.method == 'POST':
+        form = UserEditForm(request.POST)
+        if form.is_valid():
+            usuario.last_name = form.cleaned_data["last_name"]
+            usuario.first_name = form.cleaned_data["first_name"]
+            usuario.email = form.cleaned_data["email"]
+            usuario.password = form.cleaned_data["password"]
+            usuario.save()
     else:
-        profile2 = Profile.objects.get(user_id=usuario.id)
-        profile2.imagen = request.POST['imagefile']
-        profile2.country = request.POST['country']
-        profile2.city = request.POST['city']
-        profile2.save()
-        messages.success(request, 'Usuario actualizado')
-        return redirect('/')
+        form = UserEditForm(
+            initial ={
+                'last_name': usuario.last_name,
+                'first_name':usuario.first_name,
+                'email': usuario.email,
+                'password': usuario.password
+            }
+        )
+    return render(request, "form_user.html",{"form": form})
 
 @login_required
 def form_articles(request):
