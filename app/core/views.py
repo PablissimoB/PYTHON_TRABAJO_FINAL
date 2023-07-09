@@ -46,13 +46,17 @@ def edit_profile(request):
     if request.method == 'POST':
         form = ProfileEditForm(request.POST, request.FILES)
         if form.is_valid():
-            profile.imagen = form.cleaned_data["imagen"]
             profile.city = form.cleaned_data["city"]
             profile.country = form.cleaned_data["country"]
+            if form.cleaned_data["imagen"]:
+                profile.imagen = form.cleaned_data["imagen"]
+            
             profile.save()
+            return redirect('/about/')
     else:
         form = ProfileEditForm(
             initial ={
+                'imagen': profile.imagen,
                 'city': profile.city,
                 'country':profile.country
             }
@@ -70,8 +74,9 @@ def edit_user(request):
             usuario.last_name = form.cleaned_data["last_name"]
             usuario.first_name = form.cleaned_data["first_name"]
             usuario.email = form.cleaned_data["email"]
-            usuario.password = form.cleaned_data["password"]
+            usuario.set_password (form.cleaned_data["password"])
             usuario.save()
+            return redirect('')
     else:
         form = UserEditForm(
             initial ={

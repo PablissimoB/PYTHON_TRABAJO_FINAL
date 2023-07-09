@@ -3,14 +3,9 @@ from .models import Profile
 from django.contrib.auth.models import User
 
 class ProfileEditForm(forms.Form):
-    imagen = forms.ImageField()
+    imagen = forms.ImageField(required=False)
     city = forms.CharField()
     country = forms.CharField()
-
-    class Meta:
-        model = Profile,
-        fields=['imagen','city','country']
-
 
 class UserEditForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput)
